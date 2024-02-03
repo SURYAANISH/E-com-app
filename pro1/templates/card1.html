@@ -11,38 +11,74 @@
   <body>
 
 
-<nav class="navbar navbar-expand-lg"style="background-color: rgb(247, 165, 107);" >
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'home' %}">FASHION LAND</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'home' %}">HOME</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link fs-" style="color: black;" href="{% url 'about' %}">ABOUT</a>
-        </li>
-       
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            ACCOUNT
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="">login</a></li>
-            <li><a class="dropdown-item" href="#">signup</a></li>
-            <li><hr class="dropdown-divider"></li>
-          
+    <nav class="navbar navbar-expand-lg " style="background-color: rgb(247, 165, 107);">
+      <div class="container-fluid">
+        <a class="navbar-brand fs-3" href="{% url 'home' %}">FASHION LAND</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'home' %}">HOME</a>
+            </li>
+           
+            <li class="nav-item">
+              <a class="nav-link fs-" style="color: black;" href="{% url 'about' %}">ABOUT</a>
+            </li>
+            {% if request.user.is_authenticated %}
+    
+            {% else %}
+            <li class="nav-item dropdown" >
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+                ACCOUNT
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'login' %}">login</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'signup' %}">signup</a></li>
+              </ul>
+            </li>
+            {% endif %}
+            
           </ul>
-        </li>
-       
-      </ul>
+          
+    
+          {% if request.user.is_authenticated %}
+              
+          <a class="text-light  ms-auto" href="{% url 'user_logout' %}"><i class="fa-solid fa-right-from-bracket my-2  mx-2 fs-4"></i></a>
+          <h3 class="  mx-2 text-light m">{{request.user.username}}</h3>
+          <a href="{% url 'view_cart' %}" class="btn "><i class="fa-solid fa-cart-shopping text-light fs-4 "></i></a> 
+          {% else %}
+                          <button type="button" class="btn ms-auto" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <i class="fa-solid fa-cart-shopping text-light fs-4 "></i>
+                          </button>
+                          <!-- Modal -->
+                          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="staticBackdropLabel">User unknown</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  login to view cart...
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="{% url 'signup' %}"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Signup</button></a>
+                                  
+                                  <a href="{% url 'login' %}"><button type="button" class="btn btn-outline-dark">Login</button></a>
+                             
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+          {% endif %}
+          
+        </div>
+      </div>
+    </nav>
      
-    </div>
-  </div>
-</nav>
 
 <div class="container mt-5">
     <div class="row">
