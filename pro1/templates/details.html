@@ -74,8 +74,33 @@
           
                     <hr />
 
-                    <a href="{% url 'add_to_cart' data.id %}" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </a>
-  
+                    {% if request.user.is_authenticated %}
+                    <a href="{% url 'add_to_cart' data.id %}" class="btn btn-dark shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </a>
+                    {% else %}
+                          <button type="submit" class="btn ms-auto" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            <div class="btn btn-dark shadow-0"><i class="me-1 fa fa-shopping-basket"></i> Add to cart </div>
+                          </button>
+                          <!-- Modal -->
+                          <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="staticBackdropLabel">User unknown</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  login to view cart...
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="{% url 'signup' %}"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Signup</button></a>
+                                  
+                                  <a href="{% url 'login' %}"><button type="button" class="btn btn-outline-dark">Login</button></a>
+                             
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                  {% endif %}
                   </div>
                 </main>
               </div>
